@@ -42,6 +42,12 @@ kotlin {
                 implementation(project.dependencies.enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:$kotlinWrappersVersion"))
                 implementation("org.jetbrains.kotlin-wrappers:kotlin-react")
                 implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom")
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom")
+
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-mui")
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-mui-icons")
+
+
 
                 //Kotlin React CSS (chapter 3)
 //                implementation("org.jetbrains.kotlin-wrappers:kotlin-react-css:17.0.2-pre.298-kotlin-1.6.10")
