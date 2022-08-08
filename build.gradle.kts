@@ -31,10 +31,10 @@ kotlin {
     }
     sourceSets {
         val commonMain by getting {
-        dependencies {
+            dependencies {
 //            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+            }
         }
-    }
 
         val jsMain by getting {
             dependencies {
@@ -46,7 +46,7 @@ kotlin {
 
                 implementation("org.jetbrains.kotlin-wrappers:kotlin-mui")
                 implementation("org.jetbrains.kotlin-wrappers:kotlin-mui-icons")
-
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion")
 
 
                 //Kotlin React CSS (chapter 3)
