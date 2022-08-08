@@ -1,7 +1,7 @@
+val kotlinVersion = "1.7.10"
+
 plugins {
-    kotlin("multiplatform") version "1.6.10"
-    // KSP support
-    id("com.google.devtools.ksp") version "1.6.10-1.0.2"
+    kotlin("multiplatform") version "1.7.10"
 }
 
 group = "a.khris"
@@ -13,7 +13,7 @@ repositories {
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
 }
 
-val fritz2Version = "1.0-RC1"
+val kotlinWrappersVersion = "1.0.0-pre.365"
 
 kotlin {
 //    jvm()
@@ -32,20 +32,27 @@ kotlin {
     sourceSets {
         val commonMain by getting {
         dependencies {
-            implementation("dev.fritz2:core:$fritz2Version")
 //            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
         }
     }
 
         val jsMain by getting {
             dependencies {
+
+                implementation(project.dependencies.enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:$kotlinWrappersVersion"))
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-react")
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom")
+
+                //Kotlin React CSS (chapter 3)
+//                implementation("org.jetbrains.kotlin-wrappers:kotlin-react-css:17.0.2-pre.298-kotlin-1.6.10")
+
 //                implementation(compose.web.core)
 //                implementation(compose.runtime)
             }
         }
         val jsTest by getting {
             dependencies {
-                implementation(kotlin("test-js"))
+//                implementation(kotlin("test-js"))
             }
         }
 //        val jvmMain by getting {
@@ -54,21 +61,3 @@ kotlin {
 //        }
     }
 }
-
-/**
- * KSP support - start
- */
-dependencies {
-    add("kspMetadata", "dev.fritz2:lenses-annotation-processor:$fritz2Version")
-}
-kotlin.sourceSets.commonMain { kotlin.srcDir("build/generated/ksp/commonMain/kotlin") }
-tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>>().all {
-    if (name != "kspKotlinMetadata") dependsOn("kspKotlinMetadata")
-}
-// needed to work on Apple Silicon. Should be fixed by 1.6.20 (https://youtrack.jetbrains.com/issue/KT-49109#focus=Comments-27-5259190.0-0)
-rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin> {
-    rootProject.the<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension>().nodeVersion = "16.0.0"
-}
-/**
- * KSP support - end
- */
