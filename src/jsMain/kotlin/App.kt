@@ -1,59 +1,59 @@
+import common.Area
+import common.Sizes
+import components.Header
+import components.Sidebar
+import csstype.Auto
+import csstype.Display
+import csstype.GridTemplateAreas
+import csstype.array
 import kotlinx.browser.document
+import modules.ScreensModule
+import modules.ThemeModule
 import mui.material.*
 import mui.material.styles.TypographyVariant
+import mui.system.sx
 import react.FC
 import react.Props
 import react.create
 import react.dom.client.createRoot
 import react.dom.html.ReactHTML.div
+import react.router.dom.HashRouter
 
 
 fun main() {
     createRoot(document.createElement("div").also { document.body!!.appendChild(it) })
         .render(App.create())
-//    val root = createRoot(document.getElementById("root") ?: error("Couldn't find root container!"))
-//    root.render(App.create())
-
-//    root.render(Fragment.create {
-//        h1 {
-//            +"Hello, React+Kotlin/JS!"
-//        }
-//
-//
-//
-//    })
 }
 
 private val App = FC<Props>{
-//    HashRouter{
-//       CardsShowcase
-//    }
+    val mobileMode = useMediaQuery("(max-width:960px)")
 
-    Card {
-        CardContent {
-            Typography {
-                // TODO: Unable set color legally [MUI]
-                asDynamic().color = "text.secondary"
-                gutterBottom = true
-                +"Word of the Day"
-            }
-            Typography {
-                component = div
-                variant = TypographyVariant.h5
+    HashRouter {
+        ScreensModule {
+            ThemeModule {
+                Box {
+                    sx {
+                        display = Display.grid
+                        gridTemplateRows = array(
+                            Sizes.Header.Height,
+                            Auto.auto,
+                        )
+                        gridTemplateColumns = array(
+                            Sizes.Sidebar.Width, Auto.auto,
+                        )
+                        gridTemplateAreas = GridTemplateAreas(
+                            arrayOf(Area.Header, Area.Header),
+                            if (mobileMode)
+                                arrayOf(Area.Content, Area.Content)
+                            else
+                                arrayOf(Area.Sidebar, Area.Content),
+                        )
+                    }
 
-                +"be"
-//                Bull()
-                +"nev"
-//                Bull()
-                +"o"
-//                Bull()
-                +"lent"
-            }
-        }
-        CardActions {
-            Button {
-                size = Size.small
-                +"Learn More"
+                    Header()
+                    if (mobileMode) Menu() else Sidebar()
+//                    Content()
+                }
             }
         }
     }
