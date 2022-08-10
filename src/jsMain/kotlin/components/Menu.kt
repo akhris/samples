@@ -1,48 +1,50 @@
 package components
 
-import common.Area
 import common.Sizes
 import csstype.Color
-import csstype.None
+import csstype.None.none
+import csstype.Position.Companion.absolute
+import csstype.px
 import emotion.react.css
 import modules.ScreensContext
 import mui.material.*
+import mui.material.DrawerAnchor.left
 import mui.system.Box
 import mui.system.sx
-import react.FC
-import react.Props
-import react.ReactNode
-import react.dom.html.ReactHTML
+import react.*
+import react.dom.html.ReactHTML.nav
 import react.router.dom.NavLink
 import react.router.useLocation
-import react.useContext
+import mui.icons.material.Menu as MenuIcon
 
+val Menu = FC<Props> {
+    var isOpen by useState(false)
 
-
-val Sidebar = FC<Props> {
-    val screens = useContext(ScreensContext)
+    val showcases = useContext(ScreensContext)
     val lastPathname = useLocation().pathname.substringAfterLast("/")
 
     Box {
-        component = ReactHTML.nav
-        sx { gridArea = Area.Sidebar }
+        component = nav
 
-        Drawer {
-            variant = DrawerVariant.permanent
-            anchor = DrawerAnchor.left
+        SwipeableDrawer {
+            anchor = left
+            open = isOpen
+            onOpen = { isOpen = true }
+            onClose = { isOpen = false }
 
+            // TODO: Reorganize in mobile manner. No `List`
             Box {
                 Toolbar()
 
                 List {
                     sx { width = Sizes.Sidebar.Width }
 
-                    for ((key, name) in screens) {
+                    for ((key, name) in showcases) {
                         NavLink {
                             to = key
 
                             css {
-                                textDecoration = None.none
+                                textDecoration = none
                                 color = Color.currentcolor
                             }
 
@@ -57,6 +59,17 @@ val Sidebar = FC<Props> {
                     }
                 }
             }
+        }
+
+        SpeedDial {
+            sx {
+                position = absolute
+                bottom = 16.px
+                left = 16.px
+            }
+            ariaLabel = "Menu"
+            icon = MenuIcon.create()
+            onClick = { isOpen = true }
         }
     }
 }
