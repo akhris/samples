@@ -32,7 +32,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-//            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3")
+                implementation("org.kodein.di:kodein-di:7.12.0")
             }
         }
 
@@ -49,6 +50,7 @@ kotlin {
                 implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion")
 
 
+//                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3")
                 //Kotlin React CSS (chapter 3)
 //                implementation("org.jetbrains.kotlin-wrappers:kotlin-react-css:17.0.2-pre.298-kotlin-1.6.10")
 

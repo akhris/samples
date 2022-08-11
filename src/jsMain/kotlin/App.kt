@@ -1,5 +1,6 @@
 import common.Area
 import common.Sizes
+import components.Content
 import components.Header
 import components.Menu
 import components.Sidebar
@@ -61,7 +62,7 @@ private val App = FC<Props> {
 
                     Header()
                     if (mobileMode) Menu() else Sidebar()
-//                    Content()
+                    Content()
                 }
             }
         }
