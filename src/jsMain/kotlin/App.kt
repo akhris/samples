@@ -32,6 +32,7 @@ fun main() {
         .render(App.create())
 }
 
+
 private val App = FC<Props> {
     val mobileMode = useMediaQuery("(max-width:960px)")
 

@@ -55,6 +55,7 @@ kotlin {
                 implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion")
 
                 //todo choose offline JS database:
+                //https://kotlinlang.org/docs/using-packages-from-npm.html
                 implementation(npm("pouchdb-browser","7.3.0"))
                 implementation(npm("rxdb","12.7.16"))
                 implementation(npm("rxjs","7.5.6"))
